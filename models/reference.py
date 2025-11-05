@@ -15,16 +15,14 @@ class SealType(Base):
     __tablename__ = "seal_types"
 
     name: Mapped[str] = mapped_column(String(25), unique=True)
-    description: Mapped[str] = mapped_column(String(150), nullable=True)
+    description: Mapped[str | None] = mapped_column(String(150), nullable=True)
 
 
 class RedressLevel(Base):
     __tablename__ = "redress_levels"
 
     level: Mapped[str] = mapped_column(String(25), unique=True)
-    description: Mapped[str] = mapped_column(String(150), nullable=True)
-
-    kits: Mapped[list["Kit"]] = relationship(back_populates="redress_level")
+    description: Mapped[str | None] = mapped_column(String(150), nullable=True)
 
 
 class Category(Base):
@@ -34,11 +32,11 @@ class Category(Base):
     description: Mapped[String | None] = mapped_column(String(128), nullable=True)
     parent_category: Mapped[UUID | None] = mapped_column(UUID, ForeignKey("category.id"), nullable=True)
 
-    item: Mapped['Equipment'] = relationship(
-        'Equipment',
-        primaryjoin='Equipment.category_id == Category.id',
+    item: Mapped['Item'] = relationship(
+        'Item',
+        primaryjoin='Item.category_id == Category.id',
         back_populates='category',
-        foreign_keys='Equipment.category_id'
+        foreign_keys='Item.category_id'
     )
 
     children: Mapped[list["Category"]] = relationship(back_populates="parent")

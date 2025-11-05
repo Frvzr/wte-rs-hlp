@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 
 class Item(Base):
-    __tablename__ = "equipment"
+    __tablename__ = "item"
 
     id: Mapped[UUID] = mapped_column(UUID, primary_key=True, nullable=False, default=uuid.uuid4, unique=True)
     part_number: Mapped[String] = mapped_column(String(32), nullable=False, unique=True)

@@ -1,15 +1,13 @@
-import os
-from dotenv import load_dotenv
+from pydantic_settings import BaseSettings
+from pydantic import Field
 
 
-load_dotenv()
+class Settings(BaseSettings):
+    DATABASE_URL: str = Field(..., description="Database connection URL")
 
-
-class Settings:
-    DATABASE_URL = os.getenv("DATABASE_URL")
-
-    if not DATABASE_URL:
-        raise ValueError("DATABASE_URL not found in .env file")
+    class Config:
+        env_file = ".env"
+        case_sensitive = False
 
 
 settings = Settings()
