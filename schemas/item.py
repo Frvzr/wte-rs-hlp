@@ -30,8 +30,25 @@ class ItemUpdate(BaseSchema):
     department_id: UUID4 | None = None
     type_id: UUID4 | None = None
     unit_id: UUID4 | None = None
-    is_active: bool = True
+    is_active: bool | None = None
 
 
 class ItemResponse(ItemBase, TimestampSchema):
     id: UUID4
+
+
+class ItemDetails(BaseSchema):
+    id: UUID4
+    part_number: str
+    description: str | None = None
+    category: str | None = None
+    group: str | None = None
+    source: str | None = None
+    operation: str | None = None
+    department: str | None = None
+
+
+class ItemShortDetail(BaseSchema):
+    id: UUID4
+    part_number: str
+    description: str | None = None
